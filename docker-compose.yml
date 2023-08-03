@@ -1,0 +1,15 @@
+﻿version: '3.4'
+ 
+services:
+  webapp:
+    image: ${DOCKER_REGISTRY-}multiapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9000:443"
+      - "9001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_HTTP_PORT=9001
