@@ -2,10 +2,10 @@
  
 services:
   webapp:
-    image: ${DOCKER_REGISTRY-}multiapp
+    image: ${DOCKER_REGISTRY-}dotnetwebapps
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile     
     ports:
       - "9000:443"
       - "9001:80"

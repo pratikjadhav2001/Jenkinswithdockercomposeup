@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnetapp-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dotnet-app-awstraingingwithjagan
+  template:
+    metadata:
+      labels:
+        app: dotnet-app-awstraingingwithjagan
+    spec:
+      containers:
+        - name: dotnetapps
+          image: 11122233345/dotnetwebapps:latest
+          ports:
+           - containerPort: 80 
+            
+         

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnetapp-service
+spec:
+  selector:
+    app: dotnet-app-awstraingingwithjagan
+  ports:
+    - protocol: TCP
+      port: 80 # Port for container1 
+      targetPort: 80
+    
+  type: LoadBalancer # Change to ClusterIP or NodePort if needed
