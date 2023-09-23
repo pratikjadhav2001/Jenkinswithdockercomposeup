@@ -37,3 +37,14 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    - task: KubernetesManifest@1
+      inputs:
+        action: 'deploy'
+        connectionType: 'azureResourceManager'
+        azureSubscriptionConnection: 'Azure subscription 1(1b5f28cb-5b3c-419e-84d4-09403138d50c)'
+        azureResourceGroup: 'devenvwebapps_group'
+        kubernetesCluster: 'aksdev'
+        namespace: 'default'
+        manifests: 'eksdeployment.yaml'
+        containers: 'devcontainer'
+        imagePullSecrets: 'devdotnetsecret'
