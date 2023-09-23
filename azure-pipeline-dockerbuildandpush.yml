@@ -45,6 +45,7 @@ stages:
         azureResourceGroup: 'devenvwebapps_group'
         kubernetesCluster: 'aksdev'
         namespace: 'default'
-        manifests: 'deployment.yaml'
+        manifests: deployment.yaml'        
+        arguments: 'kubectl apply -f service.yaml'
         containers: 'devcontainer'
         imagePullSecrets: 'devdotnetsecret'
