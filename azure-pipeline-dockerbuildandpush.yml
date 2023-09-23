@@ -49,3 +49,14 @@ stages:
         arguments: 'kubectl apply -f service.yaml'
         containers: 'devcontainer'
         imagePullSecrets: 'devdotnetsecret'
+    - task: Kubernetes@1
+      inputs:
+        connectionType: 'Azure Resource Manager'
+        azureSubscriptionEndpoint: 'Azure subscription 1(1b5f28cb-5b3c-419e-84d4-09403138d50c)'
+        azureResourceGroup: 'devenvwebapps_group'
+        kubernetesCluster: 'aksdev'
+        command: 'apply'
+        useConfigurationFile: true
+        configuration: 'service.yaml'
+        secretType: 'dockerRegistry'
+        containerRegistryType: 'Azure Container Registry'
