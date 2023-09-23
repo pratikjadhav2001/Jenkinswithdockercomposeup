@@ -45,6 +45,6 @@ stages:
         azureResourceGroup: 'devenvwebapps_group'
         kubernetesCluster: 'aksdev'
         namespace: 'default'
-        manifests: 'eksdeployment.yaml'
+        manifests: 'deployment.yaml'
         containers: 'devcontainer'
         imagePullSecrets: 'devdotnetsecret'
