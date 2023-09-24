@@ -31,8 +31,17 @@ Step 5: Find out the Public ip address of Loadbalancer , in order to access the 
 Step 6: Using Kubectl commands
 <img width="620" alt="image" src="https://github.com/jaganrajagopal/Jenkinswithdockercomposeup/assets/8061469/e3ca34ec-6a49-47f3-90af-eb5956e1214d">
 
+Step 7 : Build pipeline code and stored in artificats as drop location 
+<img width="853" alt="image" src="https://github.com/jaganrajagopal/Jenkinswithdockercomposeup/assets/8061469/bb8acd49-9b68-46f9-838b-e202bc5f4468">
+
+
 step 7: Access via Public ip address
 <img width="818" alt="image" src="https://github.com/jaganrajagopal/Jenkinswithdockercomposeup/assets/8061469/12e687da-5a39-487f-b28c-37758596d61a">
+
+Step 8: Please check the AKS deployment release pipeline 
+-> Please check this link: https://github.com/jaganrajagopal/Jenkinswithdockercomposeup/blob/master/aksclusterreleasepipeline.md
+
+
 
 
 
