@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: dotnetapps
-          image: 11122233345/dotnetwebapps:latest
+          image: $(containerRegistry)+ $(imageRepository) + ':'+ $(tag)
+          
           ports:
            - containerPort: 80 
             
