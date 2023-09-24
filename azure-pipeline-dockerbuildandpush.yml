@@ -37,6 +37,20 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    
+
+    - task: CopyFiles@2
+      displayName: 'Azure copying of deploymement and service yaml'
+      inputs:
+        SourceFolder: '.'
+        Contents: '*.yaml'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    - task: PublishBuildArtifacts@1
+      displayName: 'publish artificats for the docker image'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
     - task: KubernetesManifest@1
       inputs:
         action: 'deploy'
