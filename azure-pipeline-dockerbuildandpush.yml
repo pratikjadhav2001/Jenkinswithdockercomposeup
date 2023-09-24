@@ -10,9 +10,9 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '748cbae8-5911-4041-8a84-52f1556e8d90'
+  dockerRegistryServiceConnection: 'c92b9379-90e5-4e80-9455-bbd7bbea20b7'
   imageRepository: 'jaganrajagopaljenkinswithdockercomposeup'
-  containerRegistry: 'devdotnetacr.azurecr.io'  
+  containerRegistry: 'dotnetappsacr.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
