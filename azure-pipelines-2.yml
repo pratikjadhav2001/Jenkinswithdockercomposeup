@@ -52,6 +52,13 @@ stages:
         connectionType: 'kubernetesServiceConnection'
         kubernetesServiceConnection: 'aksdevsvn'
         namespace: 'dev'
-        manifests: 'manifests'
+        manifests: |
+         $(Pipeline.Workspace)/manifests/deployment.yml
+         $(Pipeline.Workspace)/manifests/service.yml
         #resourceFileToPatch: 
         imagePullSecrets: 'dotnetsecret'
+        containers: |
+                $(containerRegistry)/$(imageRepository):$(tag)
+
+ 
+         
