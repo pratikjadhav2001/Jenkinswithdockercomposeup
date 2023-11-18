@@ -45,7 +45,7 @@ stages:
         namespace: 'dev'
         secretType: 'dockerRegistry'
         secretName: 'dotnetsecret'
-        dockerRegistryEndpoint: 'dockerdotnetsvn'
+        dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
     - task: KubernetesManifest@1
       inputs:
         action: 'deploy'
