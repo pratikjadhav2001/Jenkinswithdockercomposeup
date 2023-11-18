@@ -37,4 +37,21 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-    
+    - task: KubernetesManifest@1
+      inputs:
+        action: 'createSecret'
+        connectionType: 'kubernetesServiceConnection'
+        kubernetesServiceConnection: 'aksdevsvn'
+        namespace: 'dev'
+        secretType: 'dockerRegistry'
+        secretName: 'dotnetsecret'
+        dockerRegistryEndpoint: 'dockerdotnetsvn'
+    - task: KubernetesManifest@1
+      inputs:
+        action: 'deploy'
+        connectionType: 'kubernetesServiceConnection'
+        kubernetesServiceConnection: 'aksdevsvn'
+        namespace: 'dev'
+        manifests: 'manifests'
+        #resourceFileToPatch: 
+        imagePullSecrets: 'dotnetsecret'
