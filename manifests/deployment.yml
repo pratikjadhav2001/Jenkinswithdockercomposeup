@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: jaganrajagopaljenkinswithdockercomposeup 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaganrajagopaljenkinswithdockercomposeup
+  template:
+    metadata:
+      labels:
+        app: jaganrajagopaljenkinswithdockercomposeup 
+    spec:
+      containers:
+        - name: jaganrajagopaljenkinswithdockercomposeup 
+          image: webappdotnetacr.azurecr.io/jaganrajagopaljenkinswithdockercomposeup
+          ports:
+          - containerPort: 80
