@@ -44,7 +44,7 @@ stages:
         artifact: 'manfiests'
         publishLocation: 'pipeline'
 
-- stage: Deploy to aks
+- stage: Deploytoaks
   dependsOn: Build 
   displayName: 'Deploy to Aks'
   variables:
