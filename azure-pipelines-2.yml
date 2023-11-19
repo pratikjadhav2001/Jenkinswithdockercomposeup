@@ -11,8 +11,8 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '0a507084-27a9-430c-aecc-0c1a40407af9'
-  imageRepository: 'jaganrajagopaljenkinswithdockercomposeup'
-  containerRegistry: 'acrdotnet.azurecr.io'
+  imageRepository: 'dotnetrepo'
+  containerRegistry: 'dotnetacrlatest.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
@@ -34,31 +34,55 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        containerRegistry: $(containerRegistry)
         tags: |
           $(tag)
-    - task: KubernetesManifest@1
+    
+    - task: PublishPipelineArtifact@1
       inputs:
-        action: 'createSecret'
-        connectionType: 'kubernetesServiceConnection'
-        kubernetesServiceConnection: 'aksdevsvn'
-        namespace: 'dev'
-        secretType: 'dockerRegistry'
-        secretName: 'dotnetsecret'
-        dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
-    - task: KubernetesManifest@1
-      inputs:
-        action: 'deploy'
-        connectionType: 'kubernetesServiceConnection'
-        kubernetesServiceConnection: 'aksdevsvn'
-        namespace: 'dev'
-        manifests: |
-         $(Pipeline.Workspace)/manifests/deployment.yml
-         $(Pipeline.Workspace)/manifests/service.yml
-        #resourceFileToPatch: 
-        imagePullSecrets: 'dotnetsecret'
-        containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
+        targetPath: '$(Pipeline.Workspace)/manifests'
+        artifact: 'manfiests'
+        publishLocation: 'pipeline'
 
- 
-         
+- stage: Deploy to aks
+  dependsOn: Build 
+  displayName: 'Deploy to Aks'
+  variables:
+    imagesecretkey: 'dotnetsecret'
+    manfiests: 'manfiests'
+    acrdevurl: 'dotnetacrlatest'
+    imagerepo: 'dotnetwebapps'
+  pool:
+    vmImage: $(vmImageName)
+    environment: 'jaganrajagopalJenkinswithdockercomposeup.dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: DownloadBuildArtifacts@1
+              inputs:
+                buildType: 'current'
+                downloadType: 'single'
+                artifactName: 'manfiests'
+                downloadPath: '$(System.ArtifactsDirectory)'
+            #secret
+            - task: KubernetesManifest@1
+              inputs:
+                action: 'createSecret'
+                connectionType: 'kubernetesServiceConnection'
+                kubernetesServiceConnection: 'akssvnlatest'
+                namespace: 'default'
+                secretType: 'dockerRegistry'
+                secretName: $(imagesecretkey)
+                dockerRegistryEndpoint: 'aksdev'
+            - task: KubernetesManifest@1
+              inputs:
+                action: 'deploy'
+                connectionType: 'kubernetesServiceConnection'
+                kubernetesServiceConnection: 'akssvnlatest'
+                namespace: 'default'
+                manifests: 'manifest'
+                containers: '$(acrdevurl)/$(imageRepository):$(tag)'
+                imagePullSecrets: '$(imagesecretkey)'  
+        
+        
