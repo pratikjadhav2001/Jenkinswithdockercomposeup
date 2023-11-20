@@ -34,7 +34,10 @@ stages:
         repository: 'dotnetrepo'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-        
+    - task: PublishPipelineArtifact@1
+      inputs:
+        artifactName: 'manifests'
+        path: 'manifests'    
     - task: KubernetesManifest@1
       inputs:
         action: 'createSecret'
@@ -51,8 +54,8 @@ stages:
         kubernetesServiceConnection: 'akssvnlatest'
         namespace: 'default'
         manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
+               $(System.ArtifactsDirectory)/manifests/deployment.yml
+               $(System.ArtifactsDirectory)/manifests/service.yml
         imagePullSecrets: 'dotnetsecret'
         containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)
