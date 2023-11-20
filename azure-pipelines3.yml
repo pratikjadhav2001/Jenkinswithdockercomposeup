@@ -21,7 +21,8 @@ stages:
   - job: Build
     displayName: Build
     pool:
-      vmImage: ubuntu-latest
+      vmImage: 'ubuntu-latest'
+       
     steps:
     - task: Docker@2
       displayName: Build an image
@@ -48,6 +49,7 @@ stages:
     displayName: Deploy job
     pool:
       vmImage: $(vmImageName)
+    environment: 'myenv.aksnamespace'  
      #customize with your environment
     strategy:
       runOnce:
