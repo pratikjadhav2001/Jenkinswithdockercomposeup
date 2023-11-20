@@ -11,9 +11,9 @@ resources:
 variables:
 
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'f0379198-0bff-43b4-9ccc-2461c2afe080'
+  dockerRegistryServiceConnection: 'dotnetacr'  #'f0379198-0bff-43b4-9ccc-2461c2afe080'
   imageRepository: 'jaganrajagopaljenkinswithdockercomposeup'
-  containerRegistry: 'webappdotnetacr.azurecr.io'
+  containerRegistry: 'dotnetacrv1.azurecr.io'  #'webappdotnetacr.azurecr.io'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'webappdotnetacr011e-auth'
