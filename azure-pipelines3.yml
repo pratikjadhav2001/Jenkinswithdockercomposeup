@@ -49,7 +49,7 @@ stages:
     displayName: Deploy job
     pool:
       vmImage: $(vmImageName)
-    environment: 'myenv.aksnamespace'  
+    environment: 'jaganrajagopalaksazuredevops'  
      #customize with your environment
     strategy:
       runOnce:
