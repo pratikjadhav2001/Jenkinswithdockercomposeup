@@ -10,7 +10,8 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
-
+  containerRegistry: 'dotnetacrv1.azurecr.io'
+  imageRepository: 'dotnetrepo'
 stages:
 - stage: Build
   displayName: Build image
@@ -33,3 +34,25 @@ stages:
         repository: 'dotnetrepo'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
+        
+    - task: KubernetesManifest@1
+      inputs:
+        action: 'createSecret'
+        connectionType: 'kubernetesServiceConnection'
+        kubernetesServiceConnection: 'akssvnlatest'
+        namespace: 'default'
+        secretType: 'dockerRegistry'
+        secretName: 'dotnetsecret'
+        dockerRegistryEndpoint: 'dotnetacr'
+    - task: KubernetesManifest@1
+      inputs:
+        action: 'deploy'
+        connectionType: 'kubernetesServiceConnection'
+        kubernetesServiceConnection: 'akssvnlatest'
+        namespace: 'default'
+        manifests: |
+                $(Pipeline.Workspace)/manifests/deployment.yml
+                $(Pipeline.Workspace)/manifests/service.yml
+        imagePullSecrets: 'dotnetsecret'
+        containers: |
+                $(containerRegistry)/$(imageRepository):$(tag)
