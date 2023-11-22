@@ -14,6 +14,7 @@ spec:
     spec:
       containers:
         - name: jaganrajagopaljenkinswithdockercomposeup 
-          image: dotnetacrv1.azurecr.io/jaganrajagopaljenkinswithdockercomposeup
+          image:  $(containerRegistry)/$(imageRepository):$(tag)
+          #dotnetacrv1.azurecr.io/jaganrajagopaljenkinswithdockercomposeup
           ports:
           - containerPort: 80
