@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: jaganrajagopaljenkinswithdockercomposeup 
-          image: dotnetacrsales.azurecr.io/dotnetacrsales
+          image: dotnetacrsales.azurecr.io/dotnetacrsales:latest
           #dotnetacrlatest.azurecr.io/jaganrajagopaljenkinswithdockercomposeup
           #dotnetacrv1.azurecr.io/jaganrajagopaljenkinswithdockercomposeup
           ports:
