@@ -16,6 +16,7 @@ spec:
         - name: jaganrajagopaljenkinswithdockercomposeup 
           image: dotnetacrlatest.azurecr.io/dotnetacrlatest:latest
           #dotnetacrlatest.azurecr.io/jaganrajagopaljenkinswithdockercomposeup
+          #just comments
           #dotnetacrv1.azurecr.io/jaganrajagopaljenkinswithdockercomposeup
           ports:
           - containerPort: 80
