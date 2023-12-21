@@ -13,13 +13,14 @@ phases:
       - echo Building the application...     
       - echo Publishing the application...    
       - echo Building the Docker image...     
-      - docker build -t $IMAGE_URI:latest .
+      - docker build -t dotnetappsjenkins .
       - echo Tagging image with tag "$IMAGE_TAG"...
-      - docker tag $IMAGE_URI:latest $IMAGE_URI:$IMAGE_TAG
+      - echo Tagging image with tag $IMAGE_URI:latest
+      - docker tag dotnetappsjenkins $IMAGE_URI:latest
   post_build:
     commands:
-      - echo Pushing the Docker image to Amazon ECR...
-      - docker push $IMAGE_URI:$IMAGE_TAG
+      - echo Pushing the Docker image to docker push ..
+      - docker push $IMAGE_URI:latest
 
 artifacts:
   files: imagedefinitions.json
