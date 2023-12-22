@@ -13,7 +13,7 @@ phases:
             ### Pulling the image
              - echo Building image of dotnet from github code and print image_reponame
              - echo $IMAGE_REPO_NAME
-             - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG . 
+             - docker build -t $IMAGE_REPO_NAME . 
              
             ### Creating the ECR repository
             ### - aws ecr describe-repositories --repository-names ${IMAGE_REPO_NAME} || aws ecr create-repository --repository-name ${IMAGE_REPO_NAME}
